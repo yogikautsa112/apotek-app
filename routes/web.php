@@ -29,7 +29,7 @@ URL dan name() harus unik
 
 // Route untuk login
 
-Route::get('/login', [UserController::class, 'loginPage'])->name('login');
+Route::get('/', [UserController::class, 'loginPage'])->name('login');
 Route::post('actionLogin', [UserController::class, 'login'])->name('actionLogin');
 Route::post('regisAction', [UserController::class, 'register'])->name('regisAction');
 
