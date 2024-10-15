@@ -28,10 +28,8 @@ URL dan name() harus unik
 */
 
 // Route untuk login
-
 Route::get('/', [UserController::class, 'loginPage'])->name('login');
 Route::post('actionLogin', [UserController::class, 'login'])->name('actionLogin');
-Route::post('regisAction', [UserController::class, 'register'])->name('regisAction');
 
 // Route untuk landing page
 Route::get('/landing-page', [LandingPageController::class, 'index'])->name('landing_page');
@@ -51,7 +49,6 @@ Route::put('/medicines/update-stock/{id}', [MedicineController::class, 'stockEdi
 
 // Route untuk user management
 Route::get('/menage', [UserController::class, 'index'])->name('menage');
-Route::get('/register', [UserController::class, 'regisPage'])->name('register');
 Route::get('/user-add', [UserController::class, 'create'])->name('user_add');
 Route::post('/user-add', [UserController::class, 'store'])->name('user_add.store');
 Route::get('/user-edit/{id}', [UserController::class, 'edit'])->name('users.edit');

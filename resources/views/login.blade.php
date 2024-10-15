@@ -25,7 +25,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
-                <p class="mt-3">Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></p>
             </div>
         </div>
     </div>
