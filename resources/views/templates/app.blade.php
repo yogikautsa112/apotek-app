@@ -23,31 +23,34 @@
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('home') ? 'active' : '' }}" aria-current="page"
-                            href="{{ route('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('landing_page') ? 'active' : '' }} "
-                            href="{{ route('landing_page') }}"> Landing </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('medicines') ? 'active' : '' }} "
-                            href="{{ route('medicines') }}">Data Obat</a>
-                    </li>
-                    @if (Auth::check() && Auth::user()->role == 'admin')
+            @if (Auth::check())
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('menage') ? 'active' : '' }} "
-                                href="{{ route('menage') }}">Kelola Akun</a>
+                            <a class="nav-link {{ Route::is('home') ? 'active' : '' }}" aria-current="page"
+                                href="{{ route('home') }}">Home</a>
                         </li>
-                    @endif
-                </ul>
-                @yield('search')
-            </div>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('landing_page') ? 'active' : '' }} "
+                                href="{{ route('landing_page') }}"> Landing </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('medicines') ? 'active' : '' }} "
+                                href="{{ route('medicines') }}">Data Obat</a>
+                        </li>
+                        @if (Auth::check() && Auth::user()->role == 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('menage') ? 'active' : '' }} "
+                                    href="{{ route('menage') }}">Kelola Akun</a>
+                            </li>
+                        @endif
+                    </ul>
+                    @yield('search')
+                </div>
+            @endif
         </div>
     </nav>
+
     @yield('dynamic-content')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

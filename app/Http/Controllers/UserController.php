@@ -40,22 +40,26 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'], // Validasi email
-            'password' => ['required'], // Validasi password
+        $request->validate([
+            'email' => 'required|email:dns', // Validasi email
+            'password' => 'required', // Validasi password
         ]);
 
-        if (Auth::attempt($credentials)) { // Cek apakah email & password cocok
-            $request->session()->regenerate(); // Regenerasi session biar lebih aman
-            return redirect()->intended('home')->with('success', 'Login berhasil!'); // Redirect ke home kalau login sukses
-        }
+        $user = $request->only(['email', 'password']);
 
-        // Balikin pesan error kalau login gagal
-        return back()->withErrors([
-            'email' => 'Salah bang email atau password nya!',
-        ])->onlyInput('email');
+        if (Auth::attempt($user)) { // Cek apakah email & password cocok
+            $request->session()->regenerate(); // Regenerasi session biar lebih aman
+            return redirect()->route( 'landing_page')->with('success', 'Login berhasil !'); // Redirect ke home kalau login sukses
+        } else {
+            return redirect()->back()->with('failed', 'Login gagal ! Ada yang salah dengan data nya ');
+        }
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', value: 'Anda Telah Berhasil Log Out!');
+    }
     /**
      * Menampilkan form untuk tambah user baru.
      */

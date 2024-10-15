@@ -1,15 +1,17 @@
 @extends('templates.app', ['title' => 'Login | APOTEK'])
+
 @section('dynamic-content')
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                @if ($errors->any())
+                @if (Session::get('failed'))
                     <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                        {{ Session::get('failed') }}
+                    </div>
+                @endif
+                @if (Session::get('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
                     </div>
                 @endif
                 <h2 class="mb-4">Login</h2>

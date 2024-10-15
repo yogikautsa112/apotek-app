@@ -29,10 +29,11 @@ URL dan name() harus unik
 
 // Route untuk login
 Route::get('/', [UserController::class, 'loginPage'])->name('login');
-Route::post('actionLogin', [UserController::class, 'login'])->name('actionLogin');
+Route::post('/actionLogin', [UserController::class, 'login'])->name('actionLogin');
+Route::get('/logout', action: [UserController::class, 'logout'])->name( 'logout');
 
 // Route untuk landing page
-Route::get('/landing-page', [LandingPageController::class, 'index'])->name('landing_page');
+Route::get('/landing-page', [LandingPageController::class, 'index'])->name(name: 'landing_page');
 // Route home (juga menggunakan MedicineController)
 Route::get('/home', [UserController::class, 'home'])->name('home');
 
