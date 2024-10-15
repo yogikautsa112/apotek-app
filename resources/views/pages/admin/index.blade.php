@@ -34,7 +34,7 @@
         <div class="mb-3 flex justify-content-end">
             <a href="{{ route('user_add') }}" class="btn btn-dark bold">Tambah Akun</a>
         </div>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered text-center">
             <thead>
                 <tr>
                     <th>No</th>
