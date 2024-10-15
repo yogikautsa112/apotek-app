@@ -31,7 +31,7 @@
                 </ol>
             </div>
         @endif
-        <div class="mb-3 flex justify-content-end">
+        <div class="mb-3 flex text-end">
             <a href="{{ route('user_add') }}" class="btn btn-dark bold">Tambah Akun</a>
         </div>
         <table class="table table-striped table-bordered text-center">
@@ -70,6 +70,9 @@
                 @endif
             </tbody>
         </table>
+        <div class="text-end">
+            {{ $users->links() }}
+        </div>
 
         <div class="modal fade" id="modalDeleteObat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

@@ -28,12 +28,15 @@ URL dan name() harus unik
 */
 
 // Route untuk login
-Route::get('/', [UserController::class, 'loginPage'])->name('login');
+
+Route::get('/login', [UserController::class, 'loginPage'])->name('login');
 Route::post('actionLogin', [UserController::class, 'login'])->name('actionLogin');
 Route::post('regisAction', [UserController::class, 'register'])->name('regisAction');
 
 // Route untuk landing page
 Route::get('/landing-page', [LandingPageController::class, 'index'])->name('landing_page');
+// Route home (juga menggunakan MedicineController)
+Route::get('/home', [UserController::class, 'home'])->name('home');
 
 // Route untuk medicines
 Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines');
@@ -54,6 +57,3 @@ Route::post('/user-add', [UserController::class, 'store'])->name('user_add.store
 Route::get('/user-edit/{id}', [UserController::class, 'edit'])->name('users.edit');
 Route::patch('/user-edit/{id}', [UserController::class, 'update'])->name('users.edit.update');
 Route::delete('/user-delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
-
-// Route home (juga menggunakan MedicineController)
-Route::get('/home', [UserController::class, 'home'])->name('home');

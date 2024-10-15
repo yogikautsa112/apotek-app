@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::where('name','LIKE','%' . $request->search . "%")->orderBy("name", 'ASC')->simplePaginate(5); // Ambil semua data user dari database
+        $users = User::where('name', 'LIKE', '%' . $request->search . "%")->orderBy("name", 'ASC')->simplePaginate(2); // Ambil semua data user dari database
         return view('pages.admin.index', compact('users')); // Kirim data user ke view
     }
 
@@ -22,7 +23,7 @@ class UserController extends Controller
      */
     public function home()
     {
-        return view('home'); // Tampilkan halaman home
+        return view(view: 'home'); // Tampilkan halaman home
     }
 
     /**
@@ -30,7 +31,8 @@ class UserController extends Controller
      */
     public function loginPage()
     {
-        return view('pages.login'); // Tampilkan halaman login
+        // Tampilkan halaman login
+        return view('login');
     }
 
     /**
@@ -59,7 +61,7 @@ class UserController extends Controller
      */
     public function regisPage()
     {
-        return view('pages.register'); // Tampilkan halaman register
+        return view('register'); // Tampilkan halaman register
     }
 
     /**
@@ -77,8 +79,9 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // Enkripsi password
-            'role' => 'kasir', // Role default 'kasir'
+            'password' => Hash::make($request->password), // Enkripsi password
+            'role' => 'kasir',
+            'email_verified_at' => now(), // Role default 'kasir'
         ]);
 
         if ($user) {
@@ -118,8 +121,9 @@ class UserController extends Controller
         $proses = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password, // Password disimpan langsung (bahaya, perlu dienkripsi)
+            'password' => Hash::make($request->password), // Password disimpan langsung (bahaya, perlu dienkripsi)
             'role' => $request->role,
+            'email_verified_at' => now(),
         ]);
 
         if ($proses) {
@@ -165,7 +169,7 @@ class UserController extends Controller
 
         // Jika password diisi, maka lakukan enkripsi dan tambahkan ke array update
         if ($request->filled('password')) {
-            $dataUpdate['password'] = bcrypt($request->password);
+            $dataUpdate['password'] = Hash::make($request->password);
         }
 
         // Proses update data
