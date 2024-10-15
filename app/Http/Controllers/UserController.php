@@ -57,42 +57,6 @@ class UserController extends Controller
     }
 
     /**
-     * Tampilkan halaman registrasi.
-     */
-    public function regisPage()
-    {
-        return view('register'); // Tampilkan halaman register
-    }
-
-    /**
-     * Proses registrasi user baru.
-     */
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'], // Validasi nama
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], // Validasi email
-            'password' => ['required', 'min:8'], // Validasi password
-        ]);
-
-        // Simpan user baru ke database
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password), // Enkripsi password
-            'role' => 'kasir',
-            'email_verified_at' => now(), // Role default 'kasir'
-        ]);
-
-        if ($user) {
-            Auth::login($user); // Auto login setelah registrasi berhasil
-            return redirect()->route('login')->with('success', 'Registration successful!');
-        } else {
-            return back()->with('error', 'Registration failed. Please try again.');
-        }
-    }
-
-    /**
      * Menampilkan form untuk tambah user baru.
      */
     public function create()
