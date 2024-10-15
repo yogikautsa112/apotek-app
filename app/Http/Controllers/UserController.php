@@ -11,9 +11,9 @@ class UserController extends Controller
     /**
      * Menampilkan semua user yang ada.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all(); // Ambil semua data user dari database
+        $users = User::where('name','LIKE','%' . $request->search . "%")->orderBy("name", 'ASC')->simplePaginate(5); // Ambil semua data user dari database
         return view('pages.admin.index', compact('users')); // Kirim data user ke view
     }
 

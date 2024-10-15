@@ -1,5 +1,20 @@
 @extends('templates.app', ['title' => 'Medicines | APOTEK'])
 
+@section('search')
+    <form action="{{ route('medicines') }}" method="GET" class="d-flex" role="search">
+        {{-- Mengaktifkan form di laravel:
+    1. di <form> ada action dan method
+        GET : untuk search
+        POST : untuk menambah/mengubah/ mengahpus data
+    2. ada button type submit
+    3. di <input> harus ada name
+    4k. action di isi dari wbe.php
+    --}}
+        <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-outline-dark" type="submit"><i class="fa fa-search"></i> </button>
+    </form>
+@endsection
+
 @section('dynamic-content')
     <div class="container my-5">
         @if (Session::get('success'))
@@ -45,7 +60,8 @@
                                         <td>{{ $item['name'] }}</td>
                                         <td>{{ $item->type }}</td>
                                         <td>Rp. {{ number_format($item['price'], 0, ',', '.') }}</td>
-                                        <td  style="cursor: pointer" class="{{ $item['stock'] <= 3 ? 'bg-danger text-white fw-bold' : 'bg-white text-dark' }}"
+                                        <td style="cursor: pointer"
+                                            class="{{ $item['stock'] <= 3 ? 'bg-danger text-white fw-bold' : 'bg-white text-dark' }}"
                                             onclick="editStock('{{ $item['id'] }}' , '{{ $item['stock'] }}')">
                                             {{ $item['stock'] }}
                                         </td>
@@ -129,8 +145,7 @@
 
 @push('script')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
-    </script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         function showModal(id, name) {
             let action = '{{ route('medicines.delete', ':id') }}';

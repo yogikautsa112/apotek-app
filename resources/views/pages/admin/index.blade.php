@@ -1,5 +1,20 @@
 @extends('templates.app', ['title' => 'Kelola Akun | APOTEK'])
 
+@section('search')
+    <form action="{{ route('menage') }}" method="GET" class="d-flex" role="search">
+        {{-- Mengaktifkan form di laravel:
+    1. di <form> ada action dan method
+        GET : untuk search
+        POST : untuk menambah/mengubah/ mengahpus data
+    2. ada button type submit
+    3. di <input> harus ada name
+    4k. action di isi dari web.php
+    --}}
+        <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-outline-dark" type="submit"><i class="fa fa-search"></i> </button>
+    </form>
+@endsection
+
 @section('dynamic-content')
     <div class="container mt-4">
         @if (Session::get('success'))
@@ -34,19 +49,21 @@
                     $loop = 1;
                 @endphp
                 @if ($users->count() > 0)
-                @foreach ($users as $item)
-                    <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item['name'] }}</td>
-                        <td>{{ $item['email'] }}</td>
-                        <td>{{ $item['role'] === 'admin' ? 'Admin' : ($item['role'] === 'kasir' ? 'Kasir' : $item['role']) }}</td>
-                        <td>
-                            <a class="btn btn-primary" href="{{ route('users.edit', $item->id) }}">Edit</a>
-                            <button class="btn btn-danger" onclick="showModal('{{ $item->id }}' , '{{ $item->name }}')" >Delete</button>
-                        </td>
-                    </tr>
-                @endforeach
-                    @else
+                    @foreach ($users as $item)
+                        <tr class="text-center">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item['name'] }}</td>
+                            <td>{{ $item['email'] }}</td>
+                            <td>{{ $item['role'] === 'admin' ? 'Admin' : ($item['role'] === 'kasir' ? 'Kasir' : $item['role']) }}
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ route('users.edit', $item->id) }}">Edit</a>
+                                <button class="btn btn-danger"
+                                    onclick="showModal('{{ $item->id }}' , '{{ $item->name }}')">Delete</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
                         <td colspan="6" class="fw-bold text-center">Data Akun Kosong</td>
                     </tr>

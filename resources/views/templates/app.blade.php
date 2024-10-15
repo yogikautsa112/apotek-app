@@ -44,19 +44,7 @@
                         </li>
                     @endif
                 </ul>
-                <form action="{{ route('medicines') }}" method="GET" class="d-flex" role="search">
-                    {{-- Mengaktifkan form di laravel:
-                    1. di <form> ada action dan method
-                        GET : untuk search
-                        POST : untuk menambah/mengubah/ mengahpus data
-                    2. ada button type submit
-                    3. di <input> harus ada name
-                    4. action di isi dari wbe.php
-                    --}}
-                    <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search"
-                        name="search">
-                    <button class="btn btn-outline-dark" type="submit"><i class="fa fa-search"></i> </button>
-                </form>
+                @yield('search')
             </div>
         </div>
     </nav>
